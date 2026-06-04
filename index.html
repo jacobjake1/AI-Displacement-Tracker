@@ -28,10 +28,10 @@
   .header-sub { font-size: 12px; color: var(--text2); font-weight: 300; line-height: 1.6; }
   .asi-note { display: inline-block; margin-top: .6rem; background: rgba(255,59,48,.1); border: 1px solid rgba(255,59,48,.3); border-radius: 4px; padding: 6px 12px; font-size: 11px; color: var(--red); font-family: 'Space Mono', monospace; }
 
-  .stats-row { max-width: 960px; margin: 0 auto 1.5rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(130px,1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
-  .stat { background: var(--surface); padding: .9rem 1.1rem; }
+  .stats-row { max-width: 960px; margin: 0 auto 1.5rem; display: grid; grid-template-columns: repeat(8, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+  .stat { background: var(--surface); padding: .6rem .7rem; }
   .stat-label { font-family: 'Space Mono', monospace; font-size: 9px; letter-spacing: .08em; text-transform: uppercase; color: var(--text3); margin-bottom: .3rem; }
-  .stat-value { font-family: 'Space Mono', monospace; font-size: 1.4rem; font-weight: 700; color: var(--red); }
+  .stat-value { font-family: 'Space Mono', monospace; font-size: 1.1rem; font-weight: 700; color: var(--red); }
   .stat-sub { font-size: 10px; color: var(--text3); margin-top: .2rem; }
 
   .tabs { max-width: 960px; margin: 0 auto 1rem; display: flex; gap: 4px; flex-wrap: wrap; }
@@ -79,25 +79,16 @@
   .note { max-width: 960px; margin: 1.5rem auto 0; font-size: 11px; color: var(--text3); line-height: 1.7; border-top: 1px solid var(--border); padding-top: 1rem; }
   .note b { color: var(--text2); }
 
-  /* ── Chart section ── */
   .section-divider { max-width: 960px; margin: 3rem auto 2rem; display: flex; align-items: center; gap: 1rem; }
   .section-divider-line { flex: 1; height: 1px; background: var(--border); }
   .section-divider-label { font-family: 'Space Mono', monospace; font-size: 9px; letter-spacing: .15em; text-transform: uppercase; color: var(--text3); white-space: nowrap; }
 
-  .chart-wrapper {
-    max-width: 960px;
-    margin: 0 auto;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 1.5rem 1.5rem 1rem;
-  }
+  .chart-wrapper { max-width: 960px; margin: 0 auto; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem 1.5rem 1rem; }
   .chart-title { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: .3rem; }
   .chart-subtitle { font-size: 11px; color: #6666AA; margin-bottom: 1.2rem; line-height: 1.5; }
   .chart-legend { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 1rem; font-size: 11px; color: #8888AA; }
   .chart-leg { display: flex; align-items: center; gap: 5px; }
   .chart-leg-line { width: 18px; height: 3px; border-radius: 2px; }
-  .chart-leg-line.dashed { background: repeating-linear-gradient(90deg, #378ADD 0px, #378ADD 4px, transparent 4px, transparent 8px); height: 2px; }
   .canvas-container { position: relative; width: 100%; height: 400px; }
   .chart-note { font-size: 10px; color: var(--text3); margin-top: .9rem; font-style: italic; line-height: 1.6; border-top: 1px solid var(--surface2); padding-top: .8rem; }
 
@@ -117,7 +108,9 @@
   <div class="stat"><div class="stat-label">Wave 1 Direct</div><div class="stat-value" id="s-w1">—</div><div class="stat-sub">software displacement</div></div>
   <div class="stat"><div class="stat-label">Wave 2 Direct</div><div class="stat-value" id="s-w2">—</div><div class="stat-sub">humanoid robot wave</div></div>
   <div class="stat"><div class="stat-label">Total Direct</div><div class="stat-value" id="s-total">—</div><div class="stat-sub">combined both waves</div></div>
-  <div class="stat"><div class="stat-label">With Multiplier</div><div class="stat-value" id="s-multi">—</div><div class="stat-sub">×1.55 indirect</div></div>
+  <div class="stat"><div class="stat-label">W1 AGI Workforce</div><div class="stat-value" id="s-multi1">—</div><div class="stat-sub">replaces same output</div></div>
+  <div class="stat"><div class="stat-label">W2 AGI Workforce</div><div class="stat-value" id="s-multi2">—</div><div class="stat-sub">replaces same output</div></div>
+  <div class="stat"><div class="stat-label">To Run Economy</div><div class="stat-value" id="s-multi">—</div><div class="stat-sub">of 160M workers needed</div></div>
   <div class="stat"><div class="stat-label">% Workforce</div><div class="stat-value" id="s-pct">—</div><div class="stat-sub">160M baseline</div></div>
   <div class="stat"><div class="stat-label">Day 1–30</div><div class="stat-value" id="s-imm">—</div><div class="stat-sub">immediate ASI layer</div></div>
 </div>
@@ -140,33 +133,30 @@
 <div class="content" id="content"></div>
 <div class="note" id="note"></div>
 
-<!-- ── Divider ── -->
 <div class="section-divider">
   <div class="section-divider-line"></div>
   <div class="section-divider-label">Macro context — the four lines</div>
   <div class="section-divider-line"></div>
 </div>
 
-<!-- ── Capability chart ── -->
 <div class="chart-wrapper">
   <div class="chart-title">AGI → ASI: The Four Lines That Explain Everything</div>
   <div class="chart-subtitle">AI capability exits measurable scale at the singularity point. The other three lines remain human-scale — that contrast is the point.</div>
   <div class="chart-legend">
     <div class="chart-leg"><div class="chart-leg-line" style="background:#1D9E75"></div>AI Capability (exits chart at ASI)</div>
-    <div class="chart-leg"><div class="chart-leg-line dashed"></div>AI Cost to Use (lower = cheaper)</div>
+    <div class="chart-leg"><div class="chart-leg-line" style="background:#378ADD; border-top:2px dashed #378ADD; background:none; height:0"></div>AI Cost to Use</div>
     <div class="chart-leg"><div class="chart-leg-line" style="background:#E24B4A"></div>Unemployment %</div>
-    <div class="chart-leg"><div class="chart-leg-line" style="background:#F472B6; height:2px; border-top:2px dotted #F472B6; background:none;"></div>GDP Growth % YoY</div>
+    <div class="chart-leg"><div class="chart-leg-line" style="background:#F472B6"></div>GDP Growth % YoY</div>
   </div>
   <div class="canvas-container">
-    <canvas id="capChart" role="img" aria-label="Line chart showing AI capability, AI cost, unemployment, and GDP growth from 2024 to 2034, with a singularity event at 2029.">AI capability rises exponentially and exits the chart at 2029. AI cost collapses toward zero. Unemployment peaks near 40% then recovers. GDP dips at singularity then explodes.</canvas>
+    <canvas id="capChart"></canvas>
   </div>
   <div class="chart-note">
-    Capability index uses log scale — even so the line exits the chart at the AGI→ASI event (~2029). This is intentional and honest: no scale can represent what recursive self-improvement at ASI speed produces. The three lines that remain on the chart are human-scale economic metrics. The GDP dip at singularity = the danger zone. The 20% line = UBI forced threshold. AI cost approaching zero = post-scarcity begins.
+    Capability index uses log scale — even so the line exits the chart at the AGI→ASI event (~2029). This is intentional and honest: no scale can represent what recursive self-improvement at ASI speed produces. The three lines that remain are human-scale economic metrics. The GDP dip at singularity = the danger zone. The 20% line = UBI forced threshold. AI cost approaching zero = post-scarcity begins.
   </div>
 </div>
 
 <script>
-/* ── Job displacement data & render ── */
 const sectors = [
   {
     name: "Knowledge Work & Office",
@@ -180,10 +170,19 @@ const sectors = [
       {n:"Paralegals & legal assistants",lost:0.4,pct:94,speed:"immediate"},
       {n:"Medical billing & coders",lost:0.5,pct:92,speed:"immediate"},
       {n:"Insurance claims processors",lost:0.7,pct:90,speed:"immediate"},
+      {n:"Technical writers",lost:0.5,pct:97,speed:"immediate"},
+      {n:"Court reporters & stenographers",lost:0.05,pct:98,speed:"immediate"},
+      {n:"Business intelligence analysts",lost:0.4,pct:95,speed:"immediate"},
+      {n:"Procurement & purchasing clerks",lost:0.8,pct:94,speed:"immediate"},
       {n:"Financial analysts",lost:1.2,pct:86,speed:"fast"},
       {n:"Loan officers & underwriters",lost:0.5,pct:88,speed:"fast"},
       {n:"Market research analysts",lost:0.5,pct:86,speed:"fast"},
       {n:"Compliance officers",lost:0.3,pct:81,speed:"fast"},
+      {n:"Project managers (junior/mid)",lost:0.9,pct:85,speed:"fast"},
+      {n:"Business analysts",lost:0.6,pct:87,speed:"fast"},
+      {n:"Insurance adjusters",lost:0.3,pct:83,speed:"fast"},
+      {n:"Supply chain analysts",lost:0.4,pct:88,speed:"fast"},
+      {n:"Public relations specialists",lost:0.2,pct:82,speed:"fast"},
     ]
   },
   {
@@ -221,6 +220,8 @@ const sectors = [
       {n:"Financial advisors (mass market)",lost:0.4,pct:80,speed:"fast"},
       {n:"Insurance agents (standard lines)",lost:0.4,pct:77,speed:"fast"},
       {n:"Stock & commodities traders",lost:0.15,pct:72,speed:"moderate"},
+      {n:"Actuaries",lost:0.07,pct:83,speed:"moderate"},
+      {n:"Property appraisers",lost:0.1,pct:79,speed:"moderate"},
     ]
   },
   {
@@ -243,7 +244,10 @@ const sectors = [
       {n:"Radiologists & diagnostic imaging",lost:0.18,pct:88,speed:"fast"},
       {n:"Pathologists",lost:0.06,pct:82,speed:"fast"},
       {n:"Pharmacy technicians (dispensing)",lost:0.2,pct:74,speed:"fast"},
+      {n:"Mental health therapists (mild-moderate)",lost:0.3,pct:61,speed:"fast"},
       {n:"Pharmacists (dispensing function)",lost:0.15,pct:56,speed:"moderate"},
+      {n:"Dermatologists (diagnostic function)",lost:0.05,pct:72,speed:"moderate"},
+      {n:"Lab technicians",lost:0.3,pct:68,speed:"moderate"},
     ]
   },
   {
@@ -263,6 +267,7 @@ const sectors = [
       {n:"Test prep & tutoring",lost:0.25,pct:91,speed:"immediate"},
       {n:"Online course instructors",lost:0.4,pct:89,speed:"fast"},
       {n:"Corporate trainers",lost:0.3,pct:86,speed:"fast"},
+      {n:"Academic advisors",lost:0.15,pct:85,speed:"fast"},
       {n:"K-12 teachers (standardized content)",lost:0.5,pct:34,speed:"moderate"},
     ]
   },
@@ -369,32 +374,36 @@ function render() {
   });
 
   const total = w1 + w2;
-  const multi = total * 1.55;
+  const multi1 = w1 / 5.0;
+  const multi2 = w2 / 1.5;
+  const multiTotal = multi1 + multi2;
   const pct = (total / 160 * 100);
 
   document.getElementById('s-w1').textContent = w1.toFixed(1) + 'M';
   document.getElementById('s-w2').textContent = w2.toFixed(1) + 'M';
   document.getElementById('s-total').textContent = total.toFixed(1) + 'M';
-  document.getElementById('s-multi').textContent = multi.toFixed(1) + 'M';
+  document.getElementById('s-multi1').textContent = multi1.toFixed(1) + 'M';
+  document.getElementById('s-multi2').textContent = multi2.toFixed(1) + 'M';
+  document.getElementById('s-multi').textContent = multiTotal.toFixed(1) + 'M';
   document.getElementById('s-pct').textContent = pct.toFixed(0) + '%';
   document.getElementById('s-imm').textContent = imm.toFixed(1) + 'M';
 
   document.getElementById('note').innerHTML = `
-    <b>Key reframes vs AGI chart:</b> (1) Timelines compressed — ASI is deployed at full capability day one, no ramp up. (2) Immediate window shrinks from 90 days to 30 days — contract non-renewals happen faster when the capability gap is unambiguous. (3) Senior software engineers moved to Fast — ASI makes even senior devs redundant faster than AGI would. (4) Humanoid robot wave added as separate layer — ASI directs robotic deployment simultaneously, accelerating physical job displacement into the 6–18 month window rather than 2–3 years. (5) <b>This chart does not model jobs that survive</b> — officiating, coaching, physical presence roles, creative arts, genuine human connection work. Those compress in supply and increase in value. <br><br>Multiplier ×1.55 captures indirect losses from consumer spending collapse and supply chain contraction. 160M workforce baseline.
+    <b>Key reframes vs AGI chart:</b> (1) Timelines compressed — ASI deployed at full capability day one, no ramp up. (2) Immediate window is 30 days — contract non-renewals happen fast when the capability gap is unambiguous. (3) Senior software engineers moved to Fast — ASI makes even senior devs redundant faster than AGI would. (4) Humanoid robot wave added as separate layer — ASI directs robotic deployment simultaneously, accelerating physical job displacement into the 6–18 month window. (5) <b>This chart does not model jobs that survive</b> — officiating, coaching, physical presence roles, creative arts, genuine human connection work. Those compress in supply and increase in value.<br><br>
+    <b>New in v2:</b> Technical writers, court reporters, BI analysts, procurement clerks (immediate); project managers, business analysts, insurance adjusters, supply chain analysts, PR specialists, mental health therapists, academic advisors (fast); dermatologists, lab technicians, actuaries, property appraisers (moderate).<br><br>
+    Multipliers are <b>split by wave</b> and shown as workers still needed post-AGI: Wave 1 ÷5.0 — one person with AGI does the work of 5+ knowledge workers, so you only need a fraction of current headcount. Wave 2 ÷1.5 — robot wave is physically constrained. The "To Run Economy" stat shows how small the surviving workforce becomes. 160M workforce baseline.
   `;
 }
 
 render();
 </script>
 
-<!-- ── Chart.js libs ── -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-annotation/3.0.1/chartjs-plugin-annotation.min.js"></script>
 <script>
-/* ── Capability chart ── */
 const capLabels = ['2024','2025','2026','2027','2028','2029','2029.5','2030','2031','2032','2033','2034'];
-const capability = [2, 4, 8, 18, 45, 180, null, null, null, null, null, null];
-const aiCost     = [95, 82, 65, 45, 22, 8, 3, 1.5, 0.8, 0.6, 0.5, 0.5];
+const capability   = [2, 4, 8, 18, 45, 180, null, null, null, null, null, null];
+const aiCost       = [95, 82, 65, 45, 22, 8, 3, 1.5, 0.8, 0.6, 0.5, 0.5];
 const unemployment = [3.9, 4.2, 6.8, 9.4, 18, 31.5, 36, 38.2, 40.1, 38.5, 28, 18];
 const gdp          = [2.8, 2.9, 3.1, 3.4, 2.0, -1.5, 4.0, 12, 28, 45, 60, 72];
 
@@ -422,7 +431,6 @@ new Chart(document.getElementById('capChart'), {
         label: 'AI Cost to Use',
         data: aiCost,
         borderColor: '#378ADD',
-        backgroundColor: 'rgba(55,138,221,0.07)',
         borderWidth: 2.5,
         pointRadius: 3,
         pointBackgroundColor: '#378ADD',
@@ -447,7 +455,6 @@ new Chart(document.getElementById('capChart'), {
         label: 'GDP Growth %',
         data: gdp,
         borderColor: '#F472B6',
-        backgroundColor: 'rgba(244,114,182,0.05)',
         borderWidth: 2,
         pointRadius: 3,
         pointBackgroundColor: '#F472B6',
@@ -473,7 +480,7 @@ new Chart(document.getElementById('capChart'), {
         callbacks: {
           label: ctx => {
             if (ctx.datasetIndex === 0) return ctx.parsed.y != null ? ` Capability: ${Math.round(ctx.parsed.y).toLocaleString()}` : ' Capability: OFF CHART (ASI)';
-            if (ctx.datasetIndex === 1) return ` AI cost: ${ctx.parsed.y?.toFixed(1) ?? '—'} (lower = cheaper)`;
+            if (ctx.datasetIndex === 1) return ` AI cost: ${ctx.parsed.y?.toFixed(1) ?? '—'}`;
             if (ctx.datasetIndex === 2) return ` Unemployment: ${ctx.parsed.y}%`;
             if (ctx.datasetIndex === 3) return ` GDP growth: ${ctx.parsed.y}% YoY`;
           }
@@ -482,19 +489,13 @@ new Chart(document.getElementById('capChart'), {
       annotation: {
         annotations: {
           singularity: {
-            type: 'line',
-            xMin: '2029', xMax: '2029',
+            type: 'line', xMin: '2029', xMax: '2029',
             borderColor: '#EF9F27', borderWidth: 2, borderDash: [4,4],
             label: {
               display: true, content: 'AGI → ASI', position: 'start',
               backgroundColor: '#EF9F27', color: '#412402',
               font: { size: 11, weight: '600' }, padding: { x: 6, y: 4 }, borderRadius: 4, yAdjust: -1
             }
-          },
-          arrowUp: {
-            type: 'line', xMin: '2029', xMax: '2029', yMin: 160, yMax: 200,
-            yScaleID: 'yLog', borderColor: '#1D9E75', borderWidth: 3,
-            label: { display: false }
           },
           ubiLine: {
             type: 'line', yMin: 20, yMax: 20, yScaleID: 'y2',
