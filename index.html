@@ -12,6 +12,7 @@
     --orange: #FF9500;
     --blue: #0A84FF;
     --purple: #BF5AF2;
+    --green: #1D9E75;
     --bg: #0A0A0F;
     --surface: #13131A;
     --surface2: #1C1C26;
@@ -28,11 +29,18 @@
   .header-sub { font-size: 12px; color: var(--text2); font-weight: 300; line-height: 1.6; }
   .asi-note { display: inline-block; margin-top: .6rem; background: rgba(255,59,48,.1); border: 1px solid rgba(255,59,48,.3); border-radius: 4px; padding: 6px 12px; font-size: 11px; color: var(--red); font-family: 'Space Mono', monospace; }
 
-  .stats-row { max-width: 960px; margin: 0 auto 1.5rem; display: grid; grid-template-columns: repeat(8, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+  .stats-row { max-width: 960px; margin: 0 auto 1.5rem; display: grid; grid-template-columns: repeat(10, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+  @media (max-width: 860px) { .stats-row { grid-template-columns: repeat(5, 1fr); } }
+  @media (max-width: 480px) { .stats-row { grid-template-columns: repeat(2, 1fr); } }
   .stat { background: var(--surface); padding: .6rem .7rem; }
-  .stat-label { font-family: 'Space Mono', monospace; font-size: 9px; letter-spacing: .08em; text-transform: uppercase; color: var(--text3); margin-bottom: .3rem; }
-  .stat-value { font-family: 'Space Mono', monospace; font-size: 1.1rem; font-weight: 700; color: var(--red); }
-  .stat-sub { font-size: 10px; color: var(--text3); margin-top: .2rem; }
+  .stat-label { font-family: 'Space Mono', monospace; font-size: 8px; letter-spacing: .06em; text-transform: uppercase; color: var(--text3); margin-bottom: .3rem; }
+  .stat-value { font-family: 'Space Mono', monospace; font-size: 1.05rem; font-weight: 700; color: var(--red); }
+  .stat-value.green { color: var(--green); }
+  .stat-value.orange { color: var(--orange); }
+  .stat-sub { font-size: 9px; color: var(--text3); margin-top: .2rem; line-height: 1.3; }
+
+  .cascade-note { max-width: 960px; margin: 0 auto 1.5rem; background: rgba(255,149,0,.07); border: 1px solid rgba(255,149,0,.25); border-radius: 8px; padding: 10px 14px; font-size: 11px; color: #AA8040; line-height: 1.7; }
+  .cascade-note b { color: var(--orange); }
 
   .tabs { max-width: 960px; margin: 0 auto 1rem; display: flex; gap: 4px; flex-wrap: wrap; }
   .tab { font-family: 'Space Mono', monospace; font-size: 9px; letter-spacing: .06em; text-transform: uppercase; padding: 5px 12px; border-radius: 3px; border: 1px solid var(--border); background: transparent; color: var(--text3); cursor: pointer; transition: all .15s; }
@@ -92,34 +100,55 @@
   .canvas-container { position: relative; width: 100%; height: 400px; }
   .chart-note { font-size: 10px; color: var(--text3); margin-top: .9rem; font-style: italic; line-height: 1.6; border-top: 1px solid var(--surface2); padding-top: .8rem; }
 
+  .changelog { max-width: 960px; margin: 3rem auto 0; }
+  .changelog-hdr { font-family: 'Space Mono', monospace; font-size: 9px; letter-spacing: .15em; text-transform: uppercase; color: var(--text3); margin-bottom: 1rem; display: flex; align-items: center; gap: 1rem; }
+  .changelog-hdr::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+  .cl-version { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; margin-bottom: .6rem; overflow: hidden; }
+  .cl-version-hdr { padding: .6rem 1rem; display: flex; align-items: center; gap: .8rem; cursor: pointer; user-select: none; }
+  .cl-version-hdr:hover { background: var(--surface2); }
+  .cl-tag { font-family: 'Space Mono', monospace; font-size: 10px; color: var(--red); font-weight: 700; }
+  .cl-date { font-family: 'Space Mono', monospace; font-size: 9px; color: var(--text3); margin-left: auto; }
+  .cl-title { font-size: 12px; color: var(--text2); }
+  .cl-body { padding: 0 1rem .8rem; display: none; }
+  .cl-body.open { display: block; }
+  .cl-item { font-size: 11px; color: var(--text3); line-height: 1.9; padding-left: 1rem; position: relative; }
+  .cl-item::before { content: '—'; position: absolute; left: 0; color: var(--text3); }
+  .cl-item b { color: var(--text2); }
+
   @media (max-width:480px) { .bar-wrap { display:none; } .job-name { font-size: 11px; } }
 </style>
 </head>
 <body>
 
 <div class="header">
-  <div class="header-eyebrow">ASI Deployment Model — USA</div>
+  <div class="header-eyebrow">ASI Deployment Model — USA · v5</div>
   <h1>Job Displacement After ASI Public Release</h1>
-  <p class="header-sub">AGI and ASI are one event. By the time a public announcement is made, ASI already exists internally. This chart models displacement from ASI deployment day — not AGI. Timelines are compressed accordingly. Humanoid robot wave included as second displacement layer.</p>
-  <span class="asi-note">⚡ "AGI release" = ASI already exists. The gap is hours, not months.</span>
+  <p class="header-sub">AGI and ASI are one event. By the time a public announcement is made, ASI already exists internally. This chart models displacement from ASI deployment day — not AGI. Timelines are compressed accordingly. Humanoid robot wave and autonomous vehicle displacement included as second layer. Mid/senior management layer now fully modeled.</p>
+  <span class="asi-note">&#9889; "AGI release" = ASI already exists. The gap is hours, not months.</span>
 </div>
 
 <div class="stats-row">
-  <div class="stat"><div class="stat-label">Wave 1 Direct</div><div class="stat-value" id="s-w1">—</div><div class="stat-sub">software displacement</div></div>
-  <div class="stat"><div class="stat-label">Wave 2 Direct</div><div class="stat-value" id="s-w2">—</div><div class="stat-sub">humanoid robot wave</div></div>
-  <div class="stat"><div class="stat-label">Total Direct</div><div class="stat-value" id="s-total">—</div><div class="stat-sub">combined both waves</div></div>
-  <div class="stat"><div class="stat-label">W1 AGI Workforce</div><div class="stat-value" id="s-multi1">—</div><div class="stat-sub">replaces same output</div></div>
-  <div class="stat"><div class="stat-label">W2 AGI Workforce</div><div class="stat-value" id="s-multi2">—</div><div class="stat-sub">replaces same output</div></div>
-  <div class="stat"><div class="stat-label">To Run Economy</div><div class="stat-value" id="s-multi">—</div><div class="stat-sub">of 160M workers needed</div></div>
-  <div class="stat"><div class="stat-label">% Workforce</div><div class="stat-value" id="s-pct">—</div><div class="stat-sub">160M baseline</div></div>
-  <div class="stat"><div class="stat-label">Day 1–30</div><div class="stat-value" id="s-imm">—</div><div class="stat-sub">immediate ASI layer</div></div>
+  <div class="stat"><div class="stat-label">Wave 1 Direct</div><div class="stat-value" id="s-w1">&#8212;</div><div class="stat-sub">cognitive displacement</div></div>
+  <div class="stat"><div class="stat-label">Wave 2 Direct</div><div class="stat-value" id="s-w2">&#8212;</div><div class="stat-sub">robot + AV wave</div></div>
+  <div class="stat"><div class="stat-label">Total Direct</div><div class="stat-value" id="s-total">&#8212;</div><div class="stat-sub">combined both waves</div></div>
+  <div class="stat"><div class="stat-label">Cascade Lost</div><div class="stat-value orange" id="s-cascade">&#8212;</div><div class="stat-sub">indirect spending collapse</div></div>
+  <div class="stat"><div class="stat-label">Total Effective</div><div class="stat-value" id="s-effective">&#8212;</div><div class="stat-sub">direct + cascade jobs</div></div>
+  <div class="stat"><div class="stat-label">W1 AGI Workers</div><div class="stat-value green" id="s-multi1">&#8212;</div><div class="stat-sub">needed for same output</div></div>
+  <div class="stat"><div class="stat-label">W2 AGI Workers</div><div class="stat-value green" id="s-multi2">&#8212;</div><div class="stat-sub">needed for same output</div></div>
+  <div class="stat"><div class="stat-label">To Run Economy</div><div class="stat-value green" id="s-multi">&#8212;</div><div class="stat-sub">of 160M workers needed</div></div>
+  <div class="stat"><div class="stat-label">% Workforce</div><div class="stat-value" id="s-pct">&#8212;</div><div class="stat-sub">160M baseline, direct</div></div>
+  <div class="stat"><div class="stat-label">Day 1&#8211;30</div><div class="stat-value" id="s-imm">&#8212;</div><div class="stat-sub">immediate ASI layer</div></div>
+</div>
+
+<div class="cascade-note">
+  <b>How to read these numbers:</b> &nbsp;Total Direct = jobs AGI/ASI eliminates outright across both waves. &nbsp;Cascade Lost = additional jobs lost through spending collapse — every displaced worker stops buying, eliminating ~0.55 downstream jobs in restaurants, retail, and local services. &nbsp;<b>Total Effective = the real number of Americans who lose income.</b> &nbsp;The productivity stats show how few AGI-augmented workers are needed to produce today's full economic output — this is why rehiring never happens.
 </div>
 
 <div class="legend">
-  <div class="leg"><div class="leg-dot" style="background:#FF3B30"></div>Immediate — Day 1–30</div>
-  <div class="leg"><div class="leg-dot" style="background:#FF9500"></div>Fast — Month 1–4</div>
-  <div class="leg"><div class="leg-dot" style="background:#0A84FF"></div>Moderate — Month 4–9</div>
-  <div class="leg"><div class="leg-dot" style="background:#BF5AF2"></div>Robot Wave — Month 6–18</div>
+  <div class="leg"><div class="leg-dot" style="background:#FF3B30"></div>Immediate &#8212; Day 1&#8211;30</div>
+  <div class="leg"><div class="leg-dot" style="background:#FF9500"></div>Fast &#8212; Month 1&#8211;4</div>
+  <div class="leg"><div class="leg-dot" style="background:#0A84FF"></div>Moderate &#8212; Month 4&#8211;9</div>
+  <div class="leg"><div class="leg-dot" style="background:#BF5AF2"></div>Robot/AV Wave &#8212; Month 6&#8211;18</div>
 </div>
 
 <div class="tabs">
@@ -127,7 +156,7 @@
   <button class="tab t-immediate" onclick="setFilter('immediate',this)">Immediate</button>
   <button class="tab t-fast" onclick="setFilter('fast',this)">Fast</button>
   <button class="tab t-moderate" onclick="setFilter('moderate',this)">Moderate</button>
-  <button class="tab t-robot" onclick="setFilter('robot',this)">Robot wave</button>
+  <button class="tab t-robot" onclick="setFilter('robot',this)">Robot / AV wave</button>
 </div>
 
 <div class="content" id="content"></div>
@@ -135,16 +164,16 @@
 
 <div class="section-divider">
   <div class="section-divider-line"></div>
-  <div class="section-divider-label">Macro context — the four lines</div>
+  <div class="section-divider-label">Macro context &#8212; the four lines</div>
   <div class="section-divider-line"></div>
 </div>
 
 <div class="chart-wrapper">
-  <div class="chart-title">AGI → ASI: The Four Lines That Explain Everything</div>
-  <div class="chart-subtitle">AI capability exits measurable scale at the singularity point. The other three lines remain human-scale — that contrast is the point.</div>
+  <div class="chart-title">AGI &#8594; ASI: The Four Lines That Explain Everything</div>
+  <div class="chart-subtitle">AI capability exits measurable scale at the singularity point. The other three lines remain human-scale &#8212; that contrast is the point.</div>
   <div class="chart-legend">
     <div class="chart-leg"><div class="chart-leg-line" style="background:#1D9E75"></div>AI Capability (exits chart at ASI)</div>
-    <div class="chart-leg"><div class="chart-leg-line" style="background:#378ADD; border-top:2px dashed #378ADD; background:none; height:0"></div>AI Cost to Use</div>
+    <div class="chart-leg"><div class="chart-leg-line" style="background:#378ADD"></div>AI Cost to Use</div>
     <div class="chart-leg"><div class="chart-leg-line" style="background:#E24B4A"></div>Unemployment %</div>
     <div class="chart-leg"><div class="chart-leg-line" style="background:#F472B6"></div>GDP Growth % YoY</div>
   </div>
@@ -152,12 +181,102 @@
     <canvas id="capChart"></canvas>
   </div>
   <div class="chart-note">
-    Capability index uses log scale — even so the line exits the chart at the AGI→ASI event (~2029). This is intentional and honest: no scale can represent what recursive self-improvement at ASI speed produces. The three lines that remain are human-scale economic metrics. The GDP dip at singularity = the danger zone. The 20% line = UBI forced threshold. AI cost approaching zero = post-scarcity begins.
+    Capability index uses log scale &#8212; even so the line exits the chart at the AGI&#8594;ASI event (~2028&#8211;2029). This is intentional and honest: no scale can represent what recursive self-improvement at ASI speed produces. GDP dip at singularity = the danger zone. 20% unemployment line = UBI forced threshold. AI cost approaching zero = post-scarcity begins.
+  </div>
+</div>
+
+<div class="changelog">
+  <div class="changelog-hdr">Changelog</div>
+
+  <div class="cl-version">
+    <div class="cl-version-hdr" onclick="this.nextElementSibling.classList.toggle('open')">
+      <span class="cl-tag">v5</span>
+      <span class="cl-title">Mid/senior management modeled + cascade jobs visualized + accuracy fixes</span>
+      <span class="cl-date">Jun 2026</span>
+    </div>
+    <div class="cl-body open">
+      <div class="cl-item"><b>New sector &#8212; Mid &amp; Senior Management:</b> middle managers, operations managers, program/portfolio managers, directors (non-C-suite), VPs (non-executive), department heads. ~3.8M jobs at fast speed. The entire layer whose job is synthesizing reports and running meetings.</div>
+      <div class="cl-item"><b>Cascade Lost stat added:</b> shows indirect spending collapse jobs (direct &#215; 0.55) &#8212; every displaced worker stops buying, eliminating downstream restaurant, retail, and local service jobs. Total Effective = direct + cascade.</div>
+      <div class="cl-item"><b>Finance additions:</b> insurance underwriters (400k, immediate), loan processors (300k, immediate), stockbrokers &amp; securities sales reps (200k, fast)</div>
+      <div class="cl-item"><b>Healthcare additions:</b> medical scribes (100k, immediate), veterinary technicians (100k, fast), occupational therapy assistants (100k, moderate)</div>
+      <div class="cl-item"><b>Government additions:</b> 911 dispatchers (100k, fast), court clerks &amp; judicial support (150k, fast), customs &amp; border processing agents (50k, moderate)</div>
+      <div class="cl-item"><b>Education additions:</b> academic research assistants (500k, fast)</div>
+      <div class="cl-item"><b>Accuracy fixes:</b> school bus drivers corrected from 68% to 38% (regulatory/liability delay around children); dentists corrected from 46% to 22% (physical manipulation component survives longer)</div>
+    </div>
+  </div>
+
+  <div class="cl-version">
+    <div class="cl-version-hdr" onclick="this.nextElementSibling.classList.toggle('open')">
+      <span class="cl-tag">v4</span>
+      <span class="cl-title">Full economy coverage &#8212; 2 new sectors, 40+ new jobs</span>
+      <span class="cl-date">Jun 2026</span>
+    </div>
+    <div class="cl-body">
+      <div class="cl-item"><b>New sector &#8212; Transportation &amp; Autonomous Vehicles:</b> taxi/rideshare, parking attendants, toll booth operators, chauffeurs, city bus drivers, school bus drivers, subway operators, last-mile delivery drivers</div>
+      <div class="cl-item"><b>New sector &#8212; Engineering &amp; Technical:</b> CAD drafters, industrial engineers, mechanical engineers, electrical engineers, cost estimators, building inspectors, surveyors, environmental engineers</div>
+      <div class="cl-item"><b>Knowledge work additions:</b> telemarketers, bill collectors, operations research analysts, grant writers, management analysts (800k), budget analysts, statisticians</div>
+      <div class="cl-item"><b>Media/Creative additions:</b> UX/UI designers, stock photographers, commercial animators, voice actors, fashion designers (mass market), interior designers (commercial), audio engineers</div>
+      <div class="cl-item"><b>Finance additions:</b> title examiners &amp; escrow officers, mortgage brokers, credit analysts</div>
+      <div class="cl-item"><b>Healthcare additions:</b> medical assistants (admin), health info technicians, sonographers, optometrists (diagnostic)</div>
+      <div class="cl-item"><b>Robot wave additions:</b> forklift operators, CNC machine operators, auto mechanics (routine), car wash attendants, hotel housekeeping, phlebotomists, dental hygienists, food runners &amp; bus boys</div>
+    </div>
+  </div>
+
+  <div class="cl-version">
+    <div class="cl-version-hdr" onclick="this.nextElementSibling.classList.toggle('open')">
+      <span class="cl-tag">v3</span>
+      <span class="cl-title">Split multiplier system + stat layout fix</span>
+      <span class="cl-date">Jun 2026</span>
+    </div>
+    <div class="cl-body">
+      <div class="cl-item"><b>Multiplier split by wave:</b> Wave 1 &#247;5.0 (knowledge work), Wave 2 &#247;1.5 (physically constrained)</div>
+      <div class="cl-item"><b>"To Run Economy" stat:</b> shows workers needed post-AGI to produce today's full economic output</div>
+      <div class="cl-item"><b>Stats row fixed:</b> equal columns, no wrapping to second line</div>
+    </div>
+  </div>
+
+  <div class="cl-version">
+    <div class="cl-version-hdr" onclick="this.nextElementSibling.classList.toggle('open')">
+      <span class="cl-tag">v2</span>
+      <span class="cl-title">15 new job categories + multiplier reframe</span>
+      <span class="cl-date">Jun 2026</span>
+    </div>
+    <div class="cl-body">
+      <div class="cl-item"><b>Multiplier reframed:</b> from &#215;1.55 consumer spending collapse to non-replacement productivity amplification mechanism</div>
+      <div class="cl-item"><b>New immediate:</b> technical writers, court reporters, BI analysts, procurement clerks</div>
+      <div class="cl-item"><b>New fast:</b> project managers, business analysts, insurance adjusters, supply chain analysts, PR specialists, mental health therapists, academic advisors</div>
+      <div class="cl-item"><b>New moderate:</b> dermatologists, lab technicians, actuaries, property appraisers</div>
+    </div>
+  </div>
+
+  <div class="cl-version">
+    <div class="cl-version-hdr" onclick="this.nextElementSibling.classList.toggle('open')">
+      <span class="cl-tag">v1</span>
+      <span class="cl-title">Initial release</span>
+      <span class="cl-date">Jun 2026</span>
+    </div>
+    <div class="cl-body">
+      <div class="cl-item">12 job sectors, 80+ roles across immediate / fast / moderate / robot wave timelines</div>
+      <div class="cl-item">Humanoid robot wave as separate displacement layer (Month 6&#8211;18)</div>
+      <div class="cl-item">Four-line macro chart: AI capability, AI cost, unemployment, GDP with singularity annotation</div>
+      <div class="cl-item">ASI framing: AGI and ASI are one event &#8212; public announcement comes after ASI already exists internally</div>
+    </div>
   </div>
 </div>
 
 <script>
 const sectors = [
+  {
+    name: "Mid & Senior Management",
+    jobs: [
+      {n:"Middle managers & team supervisors",lost:1.2,pct:88,speed:"fast"},
+      {n:"Operations managers",lost:0.8,pct:85,speed:"fast"},
+      {n:"Program & portfolio managers (mid)",lost:0.4,pct:87,speed:"fast"},
+      {n:"Directors (non-C-suite)",lost:0.7,pct:82,speed:"fast"},
+      {n:"VPs (non-executive function)",lost:0.4,pct:79,speed:"fast"},
+      {n:"Department heads (report synthesis)",lost:0.3,pct:84,speed:"fast"},
+    ]
+  },
   {
     name: "Knowledge Work & Office",
     jobs: [
@@ -174,6 +293,12 @@ const sectors = [
       {n:"Court reporters & stenographers",lost:0.05,pct:98,speed:"immediate"},
       {n:"Business intelligence analysts",lost:0.4,pct:95,speed:"immediate"},
       {n:"Procurement & purchasing clerks",lost:0.8,pct:94,speed:"immediate"},
+      {n:"Telemarketers",lost:0.2,pct:99,speed:"immediate"},
+      {n:"Bill & account collectors",lost:0.2,pct:95,speed:"immediate"},
+      {n:"Operations research analysts",lost:0.1,pct:93,speed:"immediate"},
+      {n:"Grant writers",lost:0.05,pct:91,speed:"immediate"},
+      {n:"Medical assistants (administrative)",lost:0.7,pct:88,speed:"immediate"},
+      {n:"Health information technicians",lost:0.1,pct:91,speed:"immediate"},
       {n:"Financial analysts",lost:1.2,pct:86,speed:"fast"},
       {n:"Loan officers & underwriters",lost:0.5,pct:88,speed:"fast"},
       {n:"Market research analysts",lost:0.5,pct:86,speed:"fast"},
@@ -183,6 +308,10 @@ const sectors = [
       {n:"Insurance adjusters",lost:0.3,pct:83,speed:"fast"},
       {n:"Supply chain analysts",lost:0.4,pct:88,speed:"fast"},
       {n:"Public relations specialists",lost:0.2,pct:82,speed:"fast"},
+      {n:"Management analysts",lost:0.8,pct:83,speed:"fast"},
+      {n:"Budget analysts",lost:0.05,pct:87,speed:"fast"},
+      {n:"Statisticians",lost:0.04,pct:85,speed:"fast"},
+      {n:"Credit analysts",lost:0.07,pct:84,speed:"fast"},
     ]
   },
   {
@@ -199,16 +328,23 @@ const sectors = [
     ]
   },
   {
-    name: "Media, Content & Marketing",
+    name: "Media, Content, Creative & Marketing",
     jobs: [
       {n:"Copywriters & content writers",lost:0.7,pct:96,speed:"immediate"},
       {n:"Graphic designers (commercial)",lost:0.5,pct:91,speed:"immediate"},
       {n:"Social media managers",lost:0.3,pct:88,speed:"immediate"},
       {n:"SEO specialists",lost:0.15,pct:94,speed:"immediate"},
       {n:"Translators & interpreters",lost:0.15,pct:85,speed:"immediate"},
+      {n:"UX/UI designers (commercial)",lost:0.2,pct:92,speed:"immediate"},
+      {n:"Stock photographers",lost:0.1,pct:97,speed:"immediate"},
       {n:"Journalists & reporters",lost:0.2,pct:84,speed:"fast"},
       {n:"Video editors (routine)",lost:0.2,pct:82,speed:"fast"},
       {n:"Ad buyers & campaign managers",lost:0.2,pct:79,speed:"fast"},
+      {n:"Commercial animators (routine)",lost:0.1,pct:82,speed:"fast"},
+      {n:"Voice actors (commercial/routine)",lost:0.05,pct:79,speed:"fast"},
+      {n:"Fashion designers (mass market)",lost:0.1,pct:78,speed:"fast"},
+      {n:"Interior designers (commercial standard)",lost:0.1,pct:74,speed:"fast"},
+      {n:"Audio engineers (commercial/routine)",lost:0.05,pct:77,speed:"fast"},
     ]
   },
   {
@@ -216,12 +352,43 @@ const sectors = [
     jobs: [
       {n:"Bank tellers",lost:0.3,pct:92,speed:"immediate"},
       {n:"Tax preparers",lost:0.3,pct:95,speed:"immediate"},
+      {n:"Insurance underwriters",lost:0.4,pct:93,speed:"immediate"},
+      {n:"Loan processors",lost:0.3,pct:95,speed:"immediate"},
       {n:"Accountants & auditors",lost:1.1,pct:87,speed:"fast"},
       {n:"Financial advisors (mass market)",lost:0.4,pct:80,speed:"fast"},
       {n:"Insurance agents (standard lines)",lost:0.4,pct:77,speed:"fast"},
+      {n:"Mortgage brokers",lost:0.08,pct:79,speed:"fast"},
+      {n:"Title examiners & escrow officers",lost:0.1,pct:86,speed:"fast"},
+      {n:"Stockbrokers & securities sales reps",lost:0.2,pct:78,speed:"fast"},
       {n:"Stock & commodities traders",lost:0.15,pct:72,speed:"moderate"},
       {n:"Actuaries",lost:0.07,pct:83,speed:"moderate"},
       {n:"Property appraisers",lost:0.1,pct:79,speed:"moderate"},
+    ]
+  },
+  {
+    name: "Transportation & Autonomous Vehicles",
+    jobs: [
+      {n:"Toll booth operators",lost:0.03,pct:99,speed:"immediate"},
+      {n:"Taxi & rideshare drivers (Uber/Lyft)",lost:0.4,pct:94,speed:"fast"},
+      {n:"Parking lot attendants & valets",lost:0.3,pct:92,speed:"fast"},
+      {n:"Chauffeurs & limousine drivers",lost:0.05,pct:85,speed:"fast"},
+      {n:"Last-mile delivery van drivers",lost:0.3,pct:88,speed:"fast"},
+      {n:"City bus drivers",lost:0.17,pct:71,speed:"moderate"},
+      {n:"School bus drivers",lost:0.5,pct:38,speed:"moderate"},
+      {n:"Subway & light rail operators",lost:0.05,pct:74,speed:"moderate"},
+    ]
+  },
+  {
+    name: "Engineering & Technical",
+    jobs: [
+      {n:"CAD drafters",lost:0.2,pct:94,speed:"immediate"},
+      {n:"Industrial engineers",lost:0.3,pct:74,speed:"fast"},
+      {n:"Mechanical engineers (routine analysis)",lost:0.15,pct:69,speed:"fast"},
+      {n:"Electrical engineers (routine)",lost:0.12,pct:66,speed:"fast"},
+      {n:"Cost estimators",lost:0.2,pct:82,speed:"fast"},
+      {n:"Building inspectors",lost:0.1,pct:69,speed:"moderate"},
+      {n:"Environmental engineers (routine)",lost:0.05,pct:61,speed:"moderate"},
+      {n:"Surveyors",lost:0.05,pct:64,speed:"moderate"},
     ]
   },
   {
@@ -241,13 +408,18 @@ const sectors = [
     jobs: [
       {n:"Medical transcriptionists",lost:0.08,pct:98,speed:"immediate"},
       {n:"Clinical documentation specialists",lost:0.1,pct:95,speed:"immediate"},
+      {n:"Medical scribes",lost:0.1,pct:97,speed:"immediate"},
       {n:"Radiologists & diagnostic imaging",lost:0.18,pct:88,speed:"fast"},
       {n:"Pathologists",lost:0.06,pct:82,speed:"fast"},
       {n:"Pharmacy technicians (dispensing)",lost:0.2,pct:74,speed:"fast"},
       {n:"Mental health therapists (mild-moderate)",lost:0.3,pct:61,speed:"fast"},
+      {n:"Veterinary technicians",lost:0.1,pct:71,speed:"fast"},
+      {n:"Sonographers & ultrasound techs",lost:0.07,pct:72,speed:"moderate"},
+      {n:"Optometrists (diagnostic function)",lost:0.04,pct:69,speed:"moderate"},
       {n:"Pharmacists (dispensing function)",lost:0.15,pct:56,speed:"moderate"},
       {n:"Dermatologists (diagnostic function)",lost:0.05,pct:72,speed:"moderate"},
       {n:"Lab technicians",lost:0.3,pct:68,speed:"moderate"},
+      {n:"Occupational therapy assistants",lost:0.1,pct:66,speed:"moderate"},
     ]
   },
   {
@@ -258,7 +430,7 @@ const sectors = [
       {n:"Management consultants (junior)",lost:0.3,pct:85,speed:"fast"},
       {n:"Architects (routine drafting)",lost:0.12,pct:77,speed:"fast"},
       {n:"Civil engineers (routine analysis)",lost:0.15,pct:64,speed:"moderate"},
-      {n:"Dentists (routine cleaning & basic)",lost:0.1,pct:46,speed:"moderate"},
+      {n:"Dentists (routine cleaning & basic)",lost:0.1,pct:22,speed:"moderate"},
     ]
   },
   {
@@ -268,6 +440,7 @@ const sectors = [
       {n:"Online course instructors",lost:0.4,pct:89,speed:"fast"},
       {n:"Corporate trainers",lost:0.3,pct:86,speed:"fast"},
       {n:"Academic advisors",lost:0.15,pct:85,speed:"fast"},
+      {n:"Academic research assistants",lost:0.5,pct:88,speed:"fast"},
       {n:"K-12 teachers (standardized content)",lost:0.5,pct:34,speed:"moderate"},
     ]
   },
@@ -278,16 +451,17 @@ const sectors = [
       {n:"Cashiers & checkout staff",lost:1.8,pct:76,speed:"fast"},
       {n:"Sales representatives (inside)",lost:0.9,pct:81,speed:"fast"},
       {n:"Travel agents",lost:0.06,pct:90,speed:"fast"},
+      {n:"Outside sales representatives",lost:0.4,pct:71,speed:"fast"},
       {n:"Real estate agents (standard)",lost:0.3,pct:64,speed:"moderate"},
       {n:"Property managers (routine)",lost:0.2,pct:61,speed:"moderate"},
     ]
   },
   {
-    name: "Logistics & Transport",
+    name: "Logistics & Warehousing",
     jobs: [
       {n:"Dispatchers & logistics coordinators",lost:0.4,pct:89,speed:"immediate"},
       {n:"Warehouse order pickers (non-robotic)",lost:0.9,pct:58,speed:"fast"},
-      {n:"Truck & delivery drivers",lost:1.2,pct:36,speed:"moderate"},
+      {n:"Truck & long-haul drivers",lost:1.2,pct:36,speed:"moderate"},
       {n:"Postal & mail workers",lost:0.2,pct:51,speed:"moderate"},
       {n:"Airline pilots (regulatory delay)",lost:0.1,pct:24,speed:"moderate"},
     ]
@@ -298,7 +472,10 @@ const sectors = [
       {n:"Government administrative clerks",lost:1.1,pct:82,speed:"fast"},
       {n:"DMV & permit processors",lost:0.2,pct:91,speed:"fast"},
       {n:"Tax & revenue agents",lost:0.15,pct:84,speed:"fast"},
+      {n:"911 dispatchers & emergency call operators",lost:0.1,pct:82,speed:"fast"},
+      {n:"Court clerks & judicial support staff",lost:0.15,pct:79,speed:"fast"},
       {n:"Benefits & welfare case workers",lost:0.4,pct:75,speed:"moderate"},
+      {n:"Customs & border processing agents",lost:0.05,pct:64,speed:"moderate"},
     ]
   },
   {
@@ -312,7 +489,7 @@ const sectors = [
     ]
   },
   {
-    name: "🤖 Humanoid Robot Wave — Month 6–18",
+    name: "Robot & AV Wave — Month 6–18",
     jobs: [
       {n:"Janitors & commercial cleaners",lost:2.8,pct:72,speed:"robot"},
       {n:"Home health aides & personal care",lost:3.1,pct:61,speed:"robot"},
@@ -324,6 +501,14 @@ const sectors = [
       {n:"Laundry & dry cleaning workers",lost:0.3,pct:77,speed:"robot"},
       {n:"Grounds maintenance & landscaping",lost:0.9,pct:54,speed:"robot"},
       {n:"Moving & heavy labor crews",lost:0.4,pct:58,speed:"robot"},
+      {n:"Hotel housekeeping",lost:0.5,pct:76,speed:"robot"},
+      {n:"Forklift operators",lost:0.5,pct:81,speed:"robot"},
+      {n:"CNC machine operators",lost:0.3,pct:74,speed:"robot"},
+      {n:"Auto mechanics (routine diagnostics)",lost:0.3,pct:58,speed:"robot"},
+      {n:"Car wash attendants",lost:0.1,pct:84,speed:"robot"},
+      {n:"Food runners & bus boys",lost:0.3,pct:73,speed:"robot"},
+      {n:"Phlebotomists",lost:0.15,pct:71,speed:"robot"},
+      {n:"Dental hygienists",lost:0.2,pct:63,speed:"robot"},
     ]
   }
 ];
@@ -355,18 +540,18 @@ function render() {
 
     const div = document.createElement('div');
     div.className = 'sector';
-    let html = `<div class="sector-hdr"><span class="sector-name">${sector.name}</span><span class="sector-tot">${tot.toFixed(1)}M</span></div>`;
+    let html = '<div class="sector-hdr"><span class="sector-name">' + sector.name + '</span><span class="sector-tot">' + tot.toFixed(1) + 'M</span></div>';
 
     jobs.forEach((j, i) => {
-      const labels = {immediate:'Day 1–30', fast:'Mo 1–4', moderate:'Mo 4–9', robot:'Mo 6–18 🤖'};
+      const labels = {immediate:'Day 1-30', fast:'Mo 1-4', moderate:'Mo 4-9', robot:'Mo 6-18 Robot'};
       const barW = Math.min(Math.round(j.lost / 4 * 100), 100);
-      html += `<div class="job-row" style="animation-delay:${i*25}ms">
-        <span class="job-name">${j.n}</span>
-        <span class="badge badge-${j.speed}">${labels[j.speed]}</span>
-        <div class="bar-wrap"><div class="bar-bg"><div class="bar-fill bar-${j.speed}" style="width:${barW}%"></div></div></div>
-        <span class="job-pct">${j.pct}%</span>
-        <span class="job-lost">${j.lost.toFixed(1)}M</span>
-      </div>`;
+      html += '<div class="job-row" style="animation-delay:' + (i*20) + 'ms">' +
+        '<span class="job-name">' + j.n + '</span>' +
+        '<span class="badge badge-' + j.speed + '">' + labels[j.speed] + '</span>' +
+        '<div class="bar-wrap"><div class="bar-bg"><div class="bar-fill bar-' + j.speed + '" style="width:' + barW + '%"></div></div></div>' +
+        '<span class="job-pct">' + j.pct + '%</span>' +
+        '<span class="job-lost">' + j.lost.toFixed(1) + 'M</span>' +
+        '</div>';
     });
 
     div.innerHTML = html;
@@ -374,6 +559,8 @@ function render() {
   });
 
   const total = w1 + w2;
+  const cascadeLost = total * 0.55;
+  const totalEffective = total + cascadeLost;
   const multi1 = w1 / 5.0;
   const multi2 = w2 / 1.5;
   const multiTotal = multi1 + multi2;
@@ -382,17 +569,20 @@ function render() {
   document.getElementById('s-w1').textContent = w1.toFixed(1) + 'M';
   document.getElementById('s-w2').textContent = w2.toFixed(1) + 'M';
   document.getElementById('s-total').textContent = total.toFixed(1) + 'M';
+  document.getElementById('s-cascade').textContent = cascadeLost.toFixed(1) + 'M';
+  document.getElementById('s-effective').textContent = totalEffective.toFixed(1) + 'M';
   document.getElementById('s-multi1').textContent = multi1.toFixed(1) + 'M';
   document.getElementById('s-multi2').textContent = multi2.toFixed(1) + 'M';
   document.getElementById('s-multi').textContent = multiTotal.toFixed(1) + 'M';
   document.getElementById('s-pct').textContent = pct.toFixed(0) + '%';
   document.getElementById('s-imm').textContent = imm.toFixed(1) + 'M';
 
-  document.getElementById('note').innerHTML = `
-    <b>Key reframes vs AGI chart:</b> (1) Timelines compressed — ASI deployed at full capability day one, no ramp up. (2) Immediate window is 30 days — contract non-renewals happen fast when the capability gap is unambiguous. (3) Senior software engineers moved to Fast — ASI makes even senior devs redundant faster than AGI would. (4) Humanoid robot wave added as separate layer — ASI directs robotic deployment simultaneously, accelerating physical job displacement into the 6–18 month window. (5) <b>This chart does not model jobs that survive</b> — officiating, coaching, physical presence roles, creative arts, genuine human connection work. Those compress in supply and increase in value.<br><br>
-    <b>New in v2:</b> Technical writers, court reporters, BI analysts, procurement clerks (immediate); project managers, business analysts, insurance adjusters, supply chain analysts, PR specialists, mental health therapists, academic advisors (fast); dermatologists, lab technicians, actuaries, property appraisers (moderate).<br><br>
-    Multipliers are <b>split by wave</b> and shown as workers still needed post-AGI: Wave 1 ÷5.0 — one person with AGI does the work of 5+ knowledge workers, so you only need a fraction of current headcount. Wave 2 ÷1.5 — robot wave is physically constrained. The "To Run Economy" stat shows how small the surviving workforce becomes. 160M workforce baseline.
-  `;
+  document.getElementById('note').innerHTML =
+    '<b>What this models:</b> Displacement from ASI deployment day. ASI deployed at full capability from day one, no ramp up. Immediate window is 30 days -- contract non-renewals happen fast when the capability gap is unambiguous.<br><br>' +
+    '<b>The non-replacement mechanism:</b> Companies do not need to fire anyone. One person with AGI does the work of 5+, so the company simply never posts the job listing when someone leaves. Headcount collapses through attrition and compression, not headlines.<br><br>' +
+    '<b>Cascade jobs explained:</b> Every direct job lost eliminates approximately 0.55 additional downstream jobs within 18 months as spending evaporates from knowledge-worker cities. Local restaurants, retail, and services collapse in sequence. The cascade number shown represents those indirect losses -- the real human cost is Total Effective, not just Total Direct.<br><br>' +
+    '<b>Multipliers are split by wave:</b> Wave 1 divided by 5.0 (knowledge work productivity amplification). Wave 2 divided by 1.5 (robot/AV wave, physically constrained). "To Run Economy" shows how few workers are needed post-AGI to produce today\'s full economic output vs 160M today.<br><br>' +
+    '<b>What this does not model:</b> Jobs that survive and increase in value -- live officiating, coaching, physical presence roles, creative arts, genuine human connection work. These compress in supply and rise in price as the automated world creates demand for authentically human experiences. 160M workforce baseline.';
 }
 
 render();
@@ -420,7 +610,7 @@ new Chart(document.getElementById('capChart'), {
         borderColor: '#1D9E75',
         backgroundColor: 'rgba(29,158,117,0.07)',
         borderWidth: 3,
-        pointRadius: (ctx) => ctx.parsed?.y != null ? 4 : 0,
+        pointRadius: 4,
         pointBackgroundColor: '#1D9E75',
         fill: false,
         tension: 0.3,
@@ -478,11 +668,11 @@ new Chart(document.getElementById('capChart'), {
         titleColor: '#F0F0F5',
         bodyColor: '#8888AA',
         callbacks: {
-          label: ctx => {
-            if (ctx.datasetIndex === 0) return ctx.parsed.y != null ? ` Capability: ${Math.round(ctx.parsed.y).toLocaleString()}` : ' Capability: OFF CHART (ASI)';
-            if (ctx.datasetIndex === 1) return ` AI cost: ${ctx.parsed.y?.toFixed(1) ?? '—'}`;
-            if (ctx.datasetIndex === 2) return ` Unemployment: ${ctx.parsed.y}%`;
-            if (ctx.datasetIndex === 3) return ` GDP growth: ${ctx.parsed.y}% YoY`;
+          label: function(ctx) {
+            if (ctx.datasetIndex === 0) return ctx.parsed.y != null ? ' Capability: ' + Math.round(ctx.parsed.y).toLocaleString() : ' Capability: OFF CHART (ASI)';
+            if (ctx.datasetIndex === 1) return ' AI cost: ' + (ctx.parsed.y != null ? ctx.parsed.y.toFixed(1) : '--');
+            if (ctx.datasetIndex === 2) return ' Unemployment: ' + ctx.parsed.y + '%';
+            if (ctx.datasetIndex === 3) return ' GDP growth: ' + ctx.parsed.y + '% YoY';
           }
         }
       },
@@ -492,7 +682,7 @@ new Chart(document.getElementById('capChart'), {
             type: 'line', xMin: '2029', xMax: '2029',
             borderColor: '#EF9F27', borderWidth: 2, borderDash: [4,4],
             label: {
-              display: true, content: 'AGI → ASI', position: 'start',
+              display: true, content: 'AGI -> ASI', position: 'start',
               backgroundColor: '#EF9F27', color: '#412402',
               font: { size: 11, weight: '600' }, padding: { x: 6, y: 4 }, borderRadius: 4, yAdjust: -1
             }
@@ -501,7 +691,7 @@ new Chart(document.getElementById('capChart'), {
             type: 'line', yMin: 20, yMax: 20, yScaleID: 'y2',
             borderColor: 'rgba(226,75,74,0.6)', borderWidth: 1.5, borderDash: [3,3],
             label: {
-              display: true, content: '20% — UBI forced', position: 'end',
+              display: true, content: '20% -- UBI forced', position: 'end',
               backgroundColor: 'rgba(226,75,74,0.85)', color: '#fff',
               font: { size: 10, weight: '500' }, padding: { x: 5, y: 3 }, borderRadius: 4, xAdjust: -4
             }
@@ -510,7 +700,7 @@ new Chart(document.getElementById('capChart'), {
             type: 'box', xMin: '2029', xMax: '2031',
             backgroundColor: 'rgba(226,75,74,0.05)', borderColor: 'rgba(226,75,74,0.2)', borderWidth: 1,
             label: {
-              display: true, content: ['⚠ danger zone', 'peak unemployment'],
+              display: true, content: ['danger zone', 'peak unemployment'],
               font: { size: 9 }, color: '#E24B4A',
               position: { x: 'center', y: 'center' }, yAdjust: -40
             }
@@ -522,18 +712,6 @@ new Chart(document.getElementById('capChart'), {
               display: true, content: 'UBI passes', font: { size: 9 }, color: '#BA7517',
               position: { x: 'center', y: 'start' }, yAdjust: 40
             }
-          },
-          gdpLabel: {
-            type: 'label', xValue: '2033', yValue: 72, yScaleID: 'y2',
-            content: ['GDP explodes', 'ASI productivity'], color: '#F472B6',
-            font: { size: 10 }, textAlign: 'center',
-            backgroundColor: 'rgba(244,114,182,0.1)', borderRadius: 4, padding: { x: 6, y: 4 }
-          },
-          costLabel: {
-            type: 'label', xValue: '2027', yValue: 82, yScaleID: 'yLog',
-            content: ['AI cost', 'collapsing →'], color: '#378ADD',
-            font: { size: 10 }, textAlign: 'center',
-            backgroundColor: 'rgba(55,138,221,0.08)', borderRadius: 4, padding: { x: 6, y: 4 }
           }
         }
       }
@@ -542,7 +720,7 @@ new Chart(document.getElementById('capChart'), {
       x: {
         ticks: {
           color: '#555577', font: { size: 11 }, autoSkip: false, maxRotation: 45,
-          callback: (val, i) => capLabels[i] === '2029.5' ? '' : capLabels[i]
+          callback: function(val, i) { return capLabels[i] === '2029.5' ? '' : capLabels[i]; }
         },
         grid: { color: 'rgba(255,255,255,0.05)' }
       },
@@ -550,14 +728,14 @@ new Chart(document.getElementById('capChart'), {
         type: 'logarithmic', position: 'left', min: 1, max: 200,
         ticks: {
           color: '#555577', font: { size: 10 },
-          callback: v => [1,5,10,50,100,200].includes(v) ? v : ''
+          callback: function(v) { return [1,5,10,50,100,200].includes(v) ? v : ''; }
         },
         grid: { color: 'rgba(255,255,255,0.05)' },
         title: { display: true, text: 'capability / AI cost (log scale)', color: '#555577', font: { size: 10 } }
       },
       y2: {
         position: 'right', min: -10, max: 80,
-        ticks: { color: '#555577', font: { size: 11 }, callback: v => v + '%' },
+        ticks: { color: '#555577', font: { size: 11 }, callback: function(v) { return v + '%'; } },
         grid: { drawOnChartArea: false },
         title: { display: true, text: 'unemployment % / GDP growth %', color: '#555577', font: { size: 10 } }
       }
@@ -567,70 +745,3 @@ new Chart(document.getElementById('capChart'), {
 </script>
 </body>
 </html>
-
-<!-- Changelog -->
-<style>
-  .changelog { max-width: 960px; margin: 3rem auto 0; }
-  .changelog-hdr { font-family: 'Space Mono', monospace; font-size: 9px; letter-spacing: .15em; text-transform: uppercase; color: var(--text3); margin-bottom: 1rem; display: flex; align-items: center; gap: 1rem; }
-  .changelog-hdr::after { content: ''; flex: 1; height: 1px; background: var(--border); }
-  .cl-version { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; margin-bottom: .6rem; overflow: hidden; }
-  .cl-version-hdr { padding: .6rem 1rem; display: flex; align-items: center; justify-content: space-between; cursor: pointer; user-select: none; }
-  .cl-version-hdr:hover { background: var(--surface2); }
-  .cl-tag { font-family: 'Space Mono', monospace; font-size: 10px; color: var(--red); font-weight: 700; }
-  .cl-date { font-family: 'Space Mono', monospace; font-size: 9px; color: var(--text3); }
-  .cl-title { font-size: 12px; color: var(--text2); margin-left: .8rem; }
-  .cl-body { padding: 0 1rem .8rem; display: none; }
-  .cl-body.open { display: block; }
-  .cl-item { font-size: 11px; color: var(--text3); line-height: 1.8; padding-left: 1rem; position: relative; }
-  .cl-item::before { content: '—'; position: absolute; left: 0; color: var(--text3); }
-  .cl-item b { color: var(--text2); }
-</style>
-
-<div class="changelog">
-  <div class="changelog-hdr">Changelog</div>
-
-  <div class="cl-version">
-    <div class="cl-version-hdr" onclick="this.nextElementSibling.classList.toggle('open')">
-      <span class="cl-tag">v3</span>
-      <span class="cl-title">Split multiplier system + stat layout fix</span>
-      <span class="cl-date">Jun 2026</span>
-    </div>
-    <div class="cl-body">
-      <div class="cl-item"><b>Multiplier split by wave:</b> Wave 1 ÷5.0 (knowledge work — one AGI worker replaces 5+), Wave 2 ÷1.5 (robot wave, physically constrained)</div>
-      <div class="cl-item"><b>"To Run Economy" stat:</b> shows how few workers post-AGI are needed to produce today's full economic output vs 160M today</div>
-      <div class="cl-item"><b>Stats row fixed:</b> forced 8 equal columns — no more wrapping to a second line on desktop</div>
-      <div class="cl-item"><b>Stat sizing tightened:</b> padding and font size reduced to fit all 8 boxes in one row</div>
-      <div class="cl-item"><b>Stat labels clarified:</b> W1 AGI Workforce, W2 AGI Workforce, To Run Economy</div>
-    </div>
-  </div>
-
-  <div class="cl-version">
-    <div class="cl-version-hdr" onclick="this.nextElementSibling.classList.toggle('open')">
-      <span class="cl-tag">v2</span>
-      <span class="cl-title">New job categories + multiplier reframe</span>
-      <span class="cl-date">Jun 2026</span>
-    </div>
-    <div class="cl-body">
-      <div class="cl-item"><b>Multiplier reframed:</b> from ×1.55 "consumer spending collapse" to productivity amplification — non-replacement mechanism, headcount collapses through attrition not firing</div>
-      <div class="cl-item"><b>New immediate jobs:</b> Technical writers, Court reporters & stenographers, Business intelligence analysts, Procurement & purchasing clerks (+~1.75M)</div>
-      <div class="cl-item"><b>New fast jobs:</b> Project managers, Business analysts, Insurance adjusters, Supply chain analysts, PR specialists, Mental health therapists, Academic advisors (+~2.95M)</div>
-      <div class="cl-item"><b>New moderate jobs:</b> Dermatologists, Lab technicians, Actuaries, Property appraisers (+~0.52M)</div>
-      <div class="cl-item"><b>Stats row expanded:</b> 6 boxes → 8 boxes with W1/W2 amplified breakdowns</div>
-    </div>
-  </div>
-
-  <div class="cl-version">
-    <div class="cl-version-hdr" onclick="this.nextElementSibling.classList.toggle('open')">
-      <span class="cl-tag">v1</span>
-      <span class="cl-title">Initial release</span>
-      <span class="cl-date">Jun 2026</span>
-    </div>
-    <div class="cl-body">
-      <div class="cl-item">12 job sectors, 80+ roles across immediate / fast / moderate / robot wave timelines</div>
-      <div class="cl-item">Humanoid robot wave as separate displacement layer (Month 6–18)</div>
-      <div class="cl-item">Four-line macro chart: AI capability, AI cost, unemployment, GDP growth with singularity annotation</div>
-      <div class="cl-item">ASI framing: AGI and ASI are one event — public announcement comes after ASI already exists internally</div>
-      <div class="cl-item">×1.55 multiplier for indirect economic losses</div>
-    </div>
-  </div>
-</div>
